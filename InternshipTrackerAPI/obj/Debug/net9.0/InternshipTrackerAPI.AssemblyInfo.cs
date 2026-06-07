@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InternshipTrackerAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68cd17479295293d86c9b912b84d2ce196920084")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59ec8c448e4e4e362fca4ea6ec78b63c14778e25")]
 [assembly: System.Reflection.AssemblyProductAttribute("InternshipTrackerAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InternshipTrackerAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
