@@ -31,4 +31,6 @@ public class Internship
     [Url]
     [StringLength(500)]
     public string? JobLink { get; set; }
+
+    public ICollection<InternshipSkill> InternshipSkills { get; set; } = new List<InternshipSkill>();
 }

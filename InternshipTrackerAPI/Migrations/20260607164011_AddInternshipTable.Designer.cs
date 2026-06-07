@@ -4,6 +4,7 @@ using InternshipTrackerAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipTrackerAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260607164011_AddInternshipTable")]
+    partial class AddInternshipTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,53 +69,36 @@ namespace InternshipTrackerAPI.Migrations
 
             modelBuilder.Entity("InternshipTrackerAPI.Models.InternshipSkill", b =>
                 {
-                    b.Property<int>("InternshipSkillId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InternshipSkillId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("InternshipId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsRequired")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
-                    b.HasKey("InternshipSkillId");
-
-                    b.HasIndex("InternshipId");
-
-                    b.HasIndex("SkillId");
+                    b.HasKey("Id");
 
                     b.ToTable("InternshipSkills");
                 });
 
             modelBuilder.Entity("InternshipTrackerAPI.Models.Skill", b =>
                 {
-                    b.Property<int>("SkillId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("SkillName")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SkillId");
-
-                    b.HasIndex("SkillName")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("Skills");
                 });
@@ -144,16 +130,14 @@ namespace InternshipTrackerAPI.Migrations
 
             modelBuilder.Entity("InternshipTrackerAPI.Models.UserSkill", b =>
                 {
-                    b.Property<int>("UserSkillId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserSkillId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ProficiencyLevel")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("ProficiencyLevel")
+                        .HasColumnType("int");
 
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
@@ -161,71 +145,9 @@ namespace InternshipTrackerAPI.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("YearsOfExperience")
-                        .HasColumnType("decimal(4,2)");
-
-                    b.HasKey("UserSkillId");
-
-                    b.HasIndex("SkillId");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("UserSkills");
-                });
-
-            modelBuilder.Entity("InternshipTrackerAPI.Models.InternshipSkill", b =>
-                {
-                    b.HasOne("InternshipTrackerAPI.Models.Internship", "Internship")
-                        .WithMany("InternshipSkills")
-                        .HasForeignKey("InternshipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InternshipTrackerAPI.Models.Skill", "Skill")
-                        .WithMany("InternshipSkills")
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Internship");
-
-                    b.Navigation("Skill");
-                });
-
-            modelBuilder.Entity("InternshipTrackerAPI.Models.UserSkill", b =>
-                {
-                    b.HasOne("InternshipTrackerAPI.Models.Skill", "Skill")
-                        .WithMany("UserSkills")
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InternshipTrackerAPI.Models.User", "User")
-                        .WithMany("UserSkills")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Skill");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("InternshipTrackerAPI.Models.Internship", b =>
-                {
-                    b.Navigation("InternshipSkills");
-                });
-
-            modelBuilder.Entity("InternshipTrackerAPI.Models.Skill", b =>
-                {
-                    b.Navigation("InternshipSkills");
-
-                    b.Navigation("UserSkills");
-                });
-
-            modelBuilder.Entity("InternshipTrackerAPI.Models.User", b =>
-                {
-                    b.Navigation("UserSkills");
                 });
 #pragma warning restore 612, 618
         }
